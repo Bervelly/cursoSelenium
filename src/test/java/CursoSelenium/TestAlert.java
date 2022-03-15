@@ -1,6 +1,8 @@
 package CursoSelenium;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -8,59 +10,53 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestAlert {
-    @Test
-    public void interagiAlertaSimples(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
-        driver.findElement(By.id("alert")).click();
-        Alert alert = driver.switchTo().alert();
-        Assert.assertEquals("Alert Simples", alert.getText());
-        alert.accept();
-        String texto = alert.getText();
 
-        driver.findElement(By.id("elementosForm:nome")).sendKeys(texto);
+    private WebDriver driver;
+    private DSL dsl;
+
+    @Before
+    public void inicializando(){
+        driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
+        dsl = new DSL(driver);
+    }
+
+    @After
+    public void finalizando(){
         driver.quit();
+    }
+
+
+    @Test
+    public void interagirAlertaSimples(){
+        dsl.clicarBotão("alert");
+        String texto = dsl.obterTextoEAceita();
+        Assert.assertEquals("Alert Simples", texto);
+        dsl.escrever("elementosForm:nome", texto);
     }
 
     @Test
     public void interagirAlertConfirm(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
-        driver.findElement(By.id("confirm")).click();
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+        dsl.clicarBotão("confirm");
+        Assert.assertEquals("Confirm Simples", dsl.obterTextoEAceita());
+        Assert.assertEquals("Confirmado", dsl.obterTextoEAceita());
 
-        Assert.assertEquals("Confirmado", alert.getText() );
-        alert.accept();
-        driver.quit();
     }
 
     @Test
     public void interagirAlertNotConfirm(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
-        driver.findElement(By.id("confirm")).click();
-        Alert alert = driver.switchTo().alert();
-        alert.dismiss();
-
-        Assert.assertEquals("Negado", alert.getText());
-        driver.quit();
+        dsl.clicarBotão("confirm");
+        Assert.assertEquals("Confirm Simples", dsl.obterTextoENega());
+        Assert.assertEquals("Negado", dsl.obterTextoENega());
     }
 
     @Test
     public void interagirComPrompt(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
-        driver.findElement(By.id("prompt")).click();
-        Alert alert = driver.switchTo().alert();
-        Assert.assertEquals("Digite um numero", alert.getText());
-        alert.sendKeys("12");
-        alert.accept();
-        Assert.assertEquals("Era 12?", alert.getText());
-        alert.accept();
-        Assert.assertEquals(":D", alert.getText());
-        alert.accept();
-        driver.quit();
+        dsl.clicarBotão("prompt");
+        Assert.assertEquals("Digite um numero", dsl.alertaObterTexto());
+        dsl.alertaEscrever("12");
+        Assert.assertEquals("Era 12?", dsl.obterTextoEAceita());
+        Assert.assertEquals(":D", dsl.obterTextoEAceita());
 
     }
 
