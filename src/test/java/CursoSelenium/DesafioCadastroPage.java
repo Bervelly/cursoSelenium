@@ -1,5 +1,6 @@
 package CursoSelenium;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class DesafioCadastroPage {
@@ -55,7 +56,7 @@ public class DesafioCadastroPage {
     }
 
     public String obterResultado(){
-        return dsl.buscarTextoNaPag("resultado");
+        return dsl.obterTexto(By.xpath("//*[@id='resultado']/span"));
     }
 
 }

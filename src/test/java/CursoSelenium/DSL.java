@@ -34,6 +34,9 @@ public class DSL {
     public void clicarBotão(String id) {
         driver.findElement(By.id(id)).click();
     }
+    public void clicarBotãoRadio(By by){
+        driver.findElement(by).click();
+    }
 
     public String obterValueElemento(String id) {
         return driver.findElement(By.id(id)).getAttribute("value");

@@ -19,17 +19,17 @@ public class TestesRegrasCadastro {
     private DSL dsl;
     private DesafioCadastroPage page;
 
-    @Parameter
+    @Parameterized.Parameter
     public String nome;
-    @Parameter(value=1)
+    @Parameterized.Parameter (value=1)
     public String sobrenome;
-    @Parameter(value=2)
+    @Parameterized.Parameter(value=2)
     public List<String> comidas;
-    @Parameter(value=3)
+    @Parameterized.Parameter(value=3)
     public String sexo;
-    @Parameter(value=4)
+    @Parameterized.Parameter (value=4)
     public String [] esportes;
-    @Parameter(value=5)
+    @Parameterized.Parameter (value=5)
     public String msg;
 
     @Before
@@ -45,7 +45,7 @@ public class TestesRegrasCadastro {
         driver.quit();
     }
 
-    @Parameters
+    @Parameterized.Parameters
     public static Collection<Object[]> getCollection(){
         return Arrays.asList(new Object[][]{
                 {"", "", "", Arrays.asList(), new String[]{}, "Nome eh obrigatorio"},

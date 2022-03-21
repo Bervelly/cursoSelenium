@@ -35,6 +35,6 @@ public class TestDesafioCadastro {
         page.setEscolaridade("Especializacao");
         page.setEsportes("Corrida");
         page.cadastrar();
-        Assert.assertTrue(page.obterResultado().startsWith("Cadastrado!"));
+        Assert.assertEquals("Cadastrado!", page.obterResultado());
     }
 }
