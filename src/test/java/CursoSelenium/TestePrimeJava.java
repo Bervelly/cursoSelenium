@@ -25,10 +25,18 @@ public class TestePrimeJava {
     public void finalizando(){
         driver.quit();
     }
+
     @Test
     public void testandoRadioPrime(){
-        dsl.clicarBotãoRadio(By.xpath("//*[@id=\"j_idt312:console\"]/tbody/tr/td[1]/div/div[2]/span"));
-        Assert.assertTrue(dsl.verificandoOpçãoSelecionada("j_idt312:console"));
+        dsl.clicarBotãoRadio(By.xpath("//*[@id='j_idt312:console']/tbody//td//label[@for='j_idt312:console:0']"));
+        Assert.assertTrue(dsl.verificandoOpçãoPrime("j_idt312:console:0"));
+    }
 
+    @Test
+    public void testandoComboPrime(){
+        driver.get("https://www.primefaces.org/showcase/ui/input/oneMenu.xhtml?jfwid=8791b");
+        dsl.clicarBotão("j_idt311:option_label");
+        dsl.clicarBotão("j_idt311:option_items");
+        Assert.assertEquals("Option1", dsl.obterTexto(By.id("j_idt311:option_1")));
     }
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import javax.xml.xpath.XPath;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,10 @@ public class DSL {
     public boolean verificandoOpçãoSelecionada(String id) {
         return driver.findElement(By.id(id)).isSelected();
     }
+
+    public boolean verificandoOpçãoPrime(String id){
+        return driver.findElement(By.id(id)).isSelected();
+    }
     // Link
 
     public void clicarLink(String link) {
@@ -80,7 +85,7 @@ public class DSL {
         Select combo = new Select(element);
         List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
         List<String> valores = new ArrayList<String>();
-        for (WebElement opcao : allSelectedOptions) {
+        for (WebElement opcao: allSelectedOptions) {
             valores.add(opcao.getText());
         }
         return valores;
