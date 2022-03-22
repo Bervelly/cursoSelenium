@@ -1,21 +1,22 @@
-package CursoSelenium;
+package CursoSelenium.test;
 
-import org.junit.After;
+import CursoSelenium.core.BaseTest;
+import CursoSelenium.core.DSL;
+import CursoSelenium.core.DriverFactory;
+import CursoSelenium.page.DesafioCadastroPage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-public class TestesRegrasCadastro {
-    private WebDriver driver;
+public class TestesRegrasCadastro extends BaseTest {
+
     private DSL dsl;
     private DesafioCadastroPage page;
 
@@ -34,15 +35,9 @@ public class TestesRegrasCadastro {
 
     @Before
     public void inicializando(){
-        driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
-        dsl = new DSL(driver);
-        page = new DesafioCadastroPage(driver);
-    }
-
-    @After
-    public void finalizando(){
-        driver.quit();
+        DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
+        dsl = new DSL();
+        page = new DesafioCadastroPage();
     }
 
     @Parameterized.Parameters

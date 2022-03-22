@@ -1,28 +1,29 @@
-package CursoSelenium;
+package CursoSelenium.test;
 
+import CursoSelenium.core.DSL;
+import CursoSelenium.core.DriverFactory;
+import CursoSelenium.page.DesafioCadastroPage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TesteRegraNegocio {
-    private WebDriver driver;
+
     private DSL dsl;
     private DesafioCadastroPage page;
 
     @Before
     public void inicializando(){
-        driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
-        dsl = new DSL(driver);
-        page = new DesafioCadastroPage(driver);
+
+        DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
+        dsl = new DSL();
+        page = new DesafioCadastroPage();
     }
 
     @After
     public void finalizando(){
-        driver.quit();
+        DriverFactory.KillDriver();
     }
 
     @Test

@@ -1,30 +1,25 @@
-package CursoSelenium;
+package CursoSelenium.test;
 
+import CursoSelenium.core.BaseTest;
+import CursoSelenium.core.DriverFactory;
+import CursoSelenium.page.DesafioCadastroPage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class TestDesafioCadastro {
 
-    private WebDriver driver;
-    private DSL dsl;
+public class TestDesafioCadastro extends BaseTest {
+
     private DesafioCadastroPage page;
 
     @Before
     public void inicializando() {
-        driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
-        dsl = new DSL(driver);
-        page = new DesafioCadastroPage(driver);
+        DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
+        page = new DesafioCadastroPage();
     }
 
-    @After
-    public void finalizando(){
-        driver.quit();
-    }
+
 
     @Test
     public void testeDesafio(){

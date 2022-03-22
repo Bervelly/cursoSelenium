@@ -1,5 +1,7 @@
-package CursoSelenium;
+package CursoSelenium.test;
 
+import CursoSelenium.core.DSL;
+import CursoSelenium.core.DriverFactory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,21 +11,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestePrimeJava {
-    private WebDriver driver;
+
     private DSL dsl;
 
 
     @Before
     public void inicializando() {
-        driver = new ChromeDriver();
-        driver.get("https://www.primefaces.org/showcase/ui/input/oneRadio.xhtml?jfwid=20f67");
-        dsl = new DSL(driver);
+
+        DriverFactory.getDriver().get("https://www.primefaces.org/showcase/ui/input/oneRadio.xhtml?jfwid=20f67");
+        dsl = new DSL();
 
     }
 
     @After
     public void finalizando(){
-        driver.quit();
+       DriverFactory.KillDriver();
     }
 
     @Test
@@ -34,7 +36,7 @@ public class TestePrimeJava {
 
     @Test
     public void testandoComboPrime(){
-        driver.get("https://www.primefaces.org/showcase/ui/input/oneMenu.xhtml?jfwid=8791b");
+        DriverFactory.getDriver().get("https://www.primefaces.org/showcase/ui/input/oneMenu.xhtml?jfwid=8791b");
         dsl.clicarBotão("j_idt311:option_label");
         dsl.clicarBotão("j_idt311:option_items");
         Assert.assertEquals("Option1", dsl.obterTexto(By.id("j_idt311:option_1")));

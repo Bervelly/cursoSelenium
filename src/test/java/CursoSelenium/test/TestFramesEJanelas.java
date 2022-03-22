@@ -1,30 +1,29 @@
-package CursoSelenium;
+package CursoSelenium.test;
 
+import CursoSelenium.core.DSL;
+import CursoSelenium.core.DriverFactory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.sql.SQLOutput;
-
 public class TestFramesEJanelas {
-    private WebDriver driver;
+
     private DSL dsl;
 
     @Before
     public void inicializando(){
-        driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
-        dsl = new DSL(driver);
+
+        DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
+        dsl = new DSL();
     }
 
     @After
     public void finalizando(){
-        driver.quit();
+        DriverFactory.KillDriver();
     }
 
     @Test
@@ -50,11 +49,11 @@ public class TestFramesEJanelas {
     @Test
     public void interagirNovaJanela() {
         dsl.clicarBotão("buttonPopUpHard");
-        System.out.println(driver.getWindowHandle());
-        System.out.println(driver.getWindowHandles());
-        dsl.trocarJanela((String) driver.getWindowHandles().toArray()[1]);
+        System.out.println(DriverFactory.getDriver().getWindowHandle());
+        System.out.println(DriverFactory.getDriver().getWindowHandles());
+        dsl.trocarJanela((String) DriverFactory.getDriver().getWindowHandles().toArray()[1]);
         dsl.escrever(By.tagName("textarea"), "Deu certo?");
-        dsl.trocarJanela((String) driver.getWindowHandles().toArray()[0]);
+        dsl.trocarJanela((String) DriverFactory.getDriver().getWindowHandles().toArray()[0]);
         dsl.escrever(By.tagName("textarea"), "e agora?");
     }
 }

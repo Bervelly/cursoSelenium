@@ -1,5 +1,7 @@
-package CursoSelenium;
+package CursoSelenium.test;
 
+import CursoSelenium.core.DSL;
+import CursoSelenium.core.DriverFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,21 +15,20 @@ import java.util.concurrent.TimeUnit;
 
 public class TesteSincronismo {
 
-        private WebDriver driver;
+
         private DSL dsl;
 
 
     @Before
     public void inicializando() {
-        driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
-        dsl = new DSL(driver);
+        DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/componentes.html");
+        dsl = new DSL();
 
     }
 
     @After
     public void finalizando(){
-        driver.quit();
+        DriverFactory.KillDriver();
     }
 
         @Test
@@ -39,15 +40,15 @@ public class TesteSincronismo {
         @Test
     public void deveInteragirEsperaImplicita() {
         dsl.clicarBotão("buttonDelay");
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        DriverFactory.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         dsl.escrever("novoCampo","deu certo?");
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        DriverFactory.getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         }
 
         @Test
     public void deveInteragirEsperaExplicita() {
             dsl.clicarBotão("buttonDelay");
-            WebDriverWait wait = new WebDriverWait(driver, 30);
+            WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), 30);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.id("novoCampo")));
             dsl.escrever("novoCampo", "deu certo?");
         }

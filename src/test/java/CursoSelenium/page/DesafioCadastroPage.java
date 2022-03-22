@@ -1,14 +1,12 @@
-package CursoSelenium;
+package CursoSelenium.page;
 
+import CursoSelenium.core.BasePage;
+import CursoSelenium.core.DSL;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class DesafioCadastroPage {
-    private DSL dsl;
+public class DesafioCadastroPage extends BasePage {
 
-    public DesafioCadastroPage(WebDriver driver) {
-        this.dsl = new DSL(driver);
-    }
 
     public void setNome(String nome){
         dsl.escrever("elementosForm:nome", nome);
